@@ -48,9 +48,9 @@ var loading = true;
 // do load
 (async () => {
     // fetch current version
-    const version = (await (await fetch('package.json')).json()).version;
+    const version = (await (await fetch('/phoo/package.json')).json()).version;
     // fetch latest Git hash
-    const hash = (await (await fetch('https://api.github.com/repos/dragoncoder047/phoo/commits')).json())[0].sha;
+    const hash = (await (await fetch('https://api.github.com/repos/phoo-lang/phoo/commits')).json())[0].sha;
 
     try {
         p = new Phoo({ loaders: [new FetchLoader('lib/'), new ES6Loader('../lib/')] });
