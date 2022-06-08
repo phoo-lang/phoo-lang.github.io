@@ -1,0 +1,31 @@
+@font-face {
+    font-family: "IBM Mono";
+    src: url("/ext/Web437_IBM_CGA.woff") format('woff');
+}
+
+body {
+    background: black;
+    font-size: 16px;
+    font-family: monospace;
+    color: white;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    --font: "IBM Mono";
+}
+
+.terminal,
+.cmd,
+.terminal .terminal-output div div,
+.cmd .prompt {
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.terminal .terminal-output div.raw {
+    font-size: 16px;
+}
+
+.terminal * {
+    font-family: var(--font);
+}
