@@ -53,7 +53,7 @@ var loading = true;
     const hash = (await (await fetch('https://api.github.com/repos/phoo-lang/phoo/commits')).json())[0].sha;
 
     try {
-        p = new Phoo({ loaders: [new FetchLoader('lib/'), new ES6Loader('../lib/')] });
+        p = new Phoo({ loaders: [new FetchLoader('/phoo/lib/'), new ES6Loader('../lib/')] });
 
         thread = p.createThread('__main__');
 
@@ -63,7 +63,7 @@ var loading = true;
             term.echo(color(`[DEBUG] ${joined}`, 'lime'), { raw: true });
         }
 
-        await initBuiltins(thread);
+        await initBuiltins(thread, '/phoo/lib/builtins.ph');
         thread.getScope(0).copyFrom(shell_module);
 
         run = async function runCommand(c) {
@@ -105,7 +105,7 @@ var loading = true;
         term.echo('Thread work stack:');
         term.echo(color(stringify(thread.workStack, { colorize: color }), 'inherit'), { raw: true });
         term.echo('If this continues to occur, please report it:');
-        term.echo('https://github.com/dragoncoder047/phoo/issues');
+        term.echo('https://github.com/phoo-lang/phoo/issues');
         term.disable();
         term.freeze();
         throw e;
