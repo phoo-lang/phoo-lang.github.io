@@ -10,7 +10,7 @@ const naiveColorize = (text, color) => `[[;${color};]${esc(text)}]`;
 const color = (text, color) => `<span style="color:${color};font-size:inherit">${text}</span>`;
 var p, thread;
 
-export const term = $('body').terminal(c => run(c), {
+export const term = $('main').terminal(c => run(c), {
     enabled: false,
     exit: false,
     greetings: 'Phoo is loading...',

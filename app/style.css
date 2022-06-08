@@ -6,12 +6,18 @@
 body {
     background: black;
     font-size: 16px;
-    font-family: monospace;
+    font-family: var(--font);
     color: white;
     height: 100%;
     margin: 0;
     padding: 0;
     --font: "IBM Mono";
+}
+
+main,
+header {
+    margin: 0;
+    padding: 0.2em;
 }
 
 .terminal,
