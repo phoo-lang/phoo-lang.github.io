@@ -1,5 +1,4 @@
 import { Phoo, initBuiltins, FetchLoader, ES6Loader, STACK_TRACE_SYMBOL, type } from '/phoo/src/index.js';
-import { module as shell_module } from './shell_module.js';
 import stringify from './stringify.js';
 
 var count = 0;
@@ -10,7 +9,7 @@ const naiveColorize = (text, color) => `[[;${color};]${esc(text)}]`;
 const color = (text, color) => `<span style="color:${color};font-size:inherit">${text}</span>`;
 var p, thread;
 
-export const term = $('main').terminal(c => run(c), {
+export const term = $('main').terminal(() => term.error('Hey! you should never see this'), {
     enabled: false,
     exit: false,
     greetings: 'Phoo is loading...',
@@ -30,7 +29,7 @@ $.terminal.prism_formatters = {
     command: true,
 };
 
-run = () => term.error('Still loading... be patient...');
+Object.assign(window, { stringify, color, term });
 
 var loading = true;
 (function () {
@@ -47,10 +46,6 @@ var loading = true;
 
 // do load
 (async () => {
-    // fetch current version
-    const version = (await (await fetch('/phoo/package.json')).json()).version;
-    // fetch latest Git hash
-    const hash = (await (await fetch('https://api.github.com/repos/phoo-lang/phoo/commits')).json())[0].sha;
 
     try {
         p = new Phoo({ loaders: [new FetchLoader('/phoo/lib/'), new ES6Loader('../lib/')] });
@@ -64,41 +59,16 @@ var loading = true;
         }
 
         await initBuiltins(thread, '/phoo/lib/builtins.ph');
-        thread.getScope(0).copyFrom(shell_module);
-
-        run = async function runCommand(c) {
-            try {
-                await thread.run(c);
-            } catch (e) {
-                term.error('Error!');
-                term.error(e[STACK_TRACE_SYMBOL] || '(No stack trace)');
-                term.error(e.toString());
-                if (e.stack) term.echo(`<details><summary style="color:red">View JS stack trace</summary><pre>${e.stack}</pre></details>`, { raw: true });
-            }
-            if (thread.workStack.length) {
-                var options = { colorize: color };
-                if (p.settings.prettyprint)
-                    options.indent = p.settings.prettyindent || '  ';
-                if (p.settings.maxreprdepth)
-                    options.max_depth = p.settings.maxreprdepth;
-                term.echo(`Stack: <span style="white-space:pre;">${stringify(thread.workStack, options)}</span>`, { raw: true }); // #5 getting bigger.
-            } else {
-                term.echo('Stack empty.');
-            }
-            count++;
-        };
+        await thread.run(await (await fetch('/app/shell.ph')).text());
 
         loading = false;
-        term.update(0, 'Welcome to Phoo.');
+        term.clear();
         term.enable();
         term.focus();
-        term.echo(`Version ${version} (${hash.substring(0, 7)})`);
-        term.echo('Strict mode is ' + (p.settings.strictMode ? 'ON' : 'OFF'));
-        term.echo('Press Shift+Enter for multiple lines.');
-
+        await thread.run('__m__');
     } catch (e) {
         loading = false;
-        term.error('\nFatal error!');
+        term.error('\nEither an error occurred loading Phoo, or you\nmanaged to break the shell.');
         term.exception(e);
         term.error('Phoo stack trace:');
         term.error(e[STACK_TRACE_SYMBOL]);

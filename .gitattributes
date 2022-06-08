@@ -1,1 +1,2 @@
 ext/* linguist-vendored
+*.ph linguist-language=Forth
