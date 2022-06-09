@@ -96,7 +96,9 @@ to echostack do
         $ "Stack empty." echo
     end
     else do
-        repr echo-raw
+        repr 
+        $ "Stack: " swap ++
+        echo-raw
     end
 end
 
