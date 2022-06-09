@@ -62,6 +62,7 @@ to shell.index [ stack ]
 to shell do
     0 shell.index put
     do
+        shell.index take 1+ shell.index put
         try do
             phoo
         end
@@ -77,14 +78,13 @@ to shell do
             end
             else drop
         end
+        echostack
         $ "[[;magenta;]"
         $ "(" shell.index len 1- of ' ++ fold ++
         shell.index copy ++
         $ ")" shell.index len 1- of ' ++ fold ++
         $ "-->] " ++
         input
-        shell.index take 1+ shell.index put
-        echostack
         again
     end
     shell.index release
