@@ -105,25 +105,26 @@ end
 
 to __m__ do
     use web/fetch
-    $ "Welcome to Phoo." echo
-    $ "Version "
-        $ "/phoo/package.json" fetchJSON .version ++
-        $ " (" ++
-        $ "https://api.github.com/repos/phoo-lang/phoo/commits" fetchJSON behead nip .sha 7 split drop ++
-        $ ")" ++
-        echo
-    $ "Strict mode is "
-        self .phoo .settings .strictMode iff $ "ON" else $ "OFF" ++ echo
-    $ "Press Shift+Enter for multiple lines." echo 
     window .URL window .document .location nested swap new
     .searchParams
     ' [ $ "code" ] .get()
     dup null = if do
+        $ "Welcome to Phoo." echo
+        $ "Version "
+            $ "/phoo/package.json" fetchJSON .version ++
+            $ " (" ++
+            $ "https://api.github.com/repos/phoo-lang/phoo/commits" fetchJSON behead nip .sha 7 split drop ++
+            $ ")" ++
+            echo
+        $ "Strict mode is "
+            self .phoo .settings .strictMode iff $ "ON" else $ "OFF" ++ echo
+        $ "Press Shift+Enter for multiple lines." echo 
         $ "[[;magenta;](0)-->] " input
     end
     else do
         nested window swap .atob()
         $ ` $ "[[;gray;]Program finished...]" echo` ++
+        $ "[[;gray;]Running URL-coded program...]" echo
     end
     shell
 end
