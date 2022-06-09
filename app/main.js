@@ -1,4 +1,5 @@
 import { Phoo, initBuiltins, FetchLoader, ES6Loader, STACK_TRACE_SYMBOL, type } from '/phoo/src/index.js';
+import { ExternalInterrupt } from '/phoo/src/errors.js';
 import stringify from './stringify.js';
 
 var count = 0;
@@ -66,6 +67,7 @@ var loading = true;
         term.enable();
         term.focus();
         await thread.run('__m__');
+        throw ExternalInterrupt.withPhooStack('Phoo exited unexpectedly.', thread.returnStack);
     } catch (e) {
         loading = false;
         term.error('\nEither an error occurred loading Phoo, or you\nmanaged to break the shell.');
