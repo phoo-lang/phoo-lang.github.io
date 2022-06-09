@@ -69,19 +69,19 @@ to shell do
             $ "Error!" echo-error
             dup ]getstack[ dup not if [ drop $ "(No stack trace)" ] echo-error
             dup stringify echo-error
-            .stack dup if do
+            .stack
+            dup iff do
                 $ `<details><summary style="color:red">View JS stack trace</summary><pre>` swap ++
                 $ `</pre></details>` ++
                 echo-raw
-                123
             end
-            drop
+            else drop
         end
         $ "[[;magenta;]"
-        $ "(" shell.index len of ' ++ fold ++
+        $ "(" shell.index len 1- of ' ++ fold ++
         shell.index copy ++
-        $ ")" shell.index len of ' ++ fold ++
-        $ "]-->" ++
+        $ ")" shell.index len 1- of ' ++ fold ++
+        $ "-->] " ++
         input
         shell.index take 1+ shell.index put
         echostack
@@ -119,8 +119,8 @@ to __m__ do
     $ "Welcome to Phoo." echo
     $ "Version "
         $ "/phoo/package.json" fetchJSON .version ++
-        $ "(" ++
-        $ "https://api.github.com/repos/phoo-lang/phoo/commits" fetchJSON behead nip .sha ++
+        $ " (" ++
+        $ "https://api.github.com/repos/phoo-lang/phoo/commits" fetchJSON behead nip .sha 7 split drop ++
         $ ")" ++
         echo
     $ "Strict mode is "
@@ -130,7 +130,7 @@ to __m__ do
     .searchParams
     ' [ $ "code" ] .get()
     dup null = if do
-        $ "[[;magenta;](0)]-->" input
+        $ "[[;magenta;](0)-->] " input
     end
     else do
         nested window swap .atob()
