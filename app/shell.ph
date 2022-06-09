@@ -82,6 +82,7 @@ end
 to echostack do
     stacksize pack dup dip unpack
     dup len 0 = iff do
+        drop
         $ "Stack empty." echo
     end
     else do
