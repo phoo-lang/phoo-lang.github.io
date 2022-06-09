@@ -85,7 +85,7 @@ to shell do
         $ ")" shell.index len 1- of ' ++ fold ++
         $ "-->] " ++
         input
-        again
+        dup $ ".exit" = until
     end
     shell.index release
 end
