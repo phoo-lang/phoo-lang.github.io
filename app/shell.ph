@@ -64,6 +64,7 @@ to shell do
     do
         shell.index take 1+ shell.index put
         __REPL_run__
+        noop noop noop noop noop
         echostack
         $ "[[;magenta;]"
         $ "(" shell.index len 1- of ' ++ fold ++
@@ -71,7 +72,8 @@ to shell do
         $ ")" shell.index len 1- of ' ++ fold ++
         $ "-->] " ++
         input
-        dup $ "done." = until
+        dup $ "exit" = until
+        drop
     end
     shell.index release
     $ "Shell exiting..." echo
