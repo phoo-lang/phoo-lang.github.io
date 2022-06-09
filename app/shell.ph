@@ -37,6 +37,7 @@ end
 to input do
     nested
     :__shell__.term .resume@ drop
+    :__shell__.term .enable@ drop
     :__shell__.term swap .read() await
 end
 
@@ -111,7 +112,7 @@ to __m__ do
     window .URL window .document .location nested swap new
     .searchParams
     ' [ $ "code" ] .get()
-    dup null = if do
+    dup null = iff do
         $ "Welcome to Phoo." echo
         $ "Version "
             $ "/phoo/package.json" fetchJSON .version ++
