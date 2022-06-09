@@ -63,21 +63,7 @@ to shell do
     0 shell.index put
     do
         shell.index take 1+ shell.index put
-        try do
-            phoo
-        end
-        do
-            $ "Error!" echo-error
-            dup ]getstack[ dup not if [ drop $ "(No stack trace)" ] echo-error
-            dup stringify echo-error
-            .stack
-            dup iff do
-                $ `<details><summary style="color:red">View JS stack trace</summary><pre>` swap ++
-                $ `</pre></details>` ++
-                echo-raw
-            end
-            else drop
-        end
+        __REPL_run__
         echostack
         $ "[[;magenta;]"
         $ "(" shell.index len 1- of ' ++ fold ++
@@ -85,9 +71,10 @@ to shell do
         $ ")" shell.index len 1- of ' ++ fold ++
         $ "-->] " ++
         input
-        dup $ ".exit" = until
+        dup $ "done." = until
     end
     shell.index release
+    $ "Shell exiting..." echo
 end
 
 to echostack do

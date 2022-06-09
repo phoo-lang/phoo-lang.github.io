@@ -62,6 +62,18 @@ var loading = true;
         await initBuiltins(thread, '/phoo/lib/builtins.ph');
         await thread.run(await (await fetch('/app/shell.ph')).text());
 
+        thread.module.words.add('__REPL_run__', async function foo() {
+            try {
+                this.expect('string');
+                await this.run(this.pop());
+            } catch (e) {
+                term.error('Error!');
+                term.error(e[STACK_TRACE_SYMBOL] || '(No stack trace)');
+                term.error(e.toString());
+                if (e.stack) term.echo(`<details><summary style="color:red">View JS stack trace</summary><pre>${e.stack}</pre></details>`, { raw: true });
+            }
+        })
+
         loading = false;
         term.clear();
         term.enable();
