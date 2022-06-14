@@ -18,7 +18,7 @@ export const term = $('main').terminal(() => term.error('Hey! you should never s
     mousewheel: () => true,
     autocompleteMenu: true,
     completion() {
-        return Array.from(thread.module.words.keys());
+        return Array.from(thread.module.words.map.keys());
     },
 });
 
