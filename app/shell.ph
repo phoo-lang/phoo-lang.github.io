@@ -68,7 +68,7 @@ to shell do
     do
         shell.index take 1+ shell.index put
         repl-run
-        shell.cthrd copy .stack echostack
+        shell.cthrd copy .workStack echostack
         $ "[[;magenta;]"
         $ "(" shell.index len 1- of ' ++ fold ++
         shell.index copy ++
