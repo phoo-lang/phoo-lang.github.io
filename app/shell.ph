@@ -68,8 +68,7 @@ to shell do
     do
         shell.index take 1+ shell.index put
         repl-run
-        noop noop noop noop noop
-        echostack
+        shell.cthrd copy .stack echostack
         $ "[[;magenta;]"
         $ "(" shell.index len 1- of ' ++ fold ++
         shell.index copy ++
@@ -101,7 +100,6 @@ to repl-run do
         end
         else drop
     end
-    shell.cthrd copy .stack echostack
 end
 
 to echostack do
