@@ -18,6 +18,7 @@ export const term = $('main').terminal(() => term.error('Hey! you should never s
     mousewheel: () => true,
     autocompleteMenu: true,
     completion() {
+        if (!p.settings.autocomplete) return [];
         return Array.from(thread.module.words.map.keys());
     },
 });
@@ -51,6 +52,7 @@ var loading = true;
         p = new Phoo({ loaders: [new FetchLoader('/phoo/lib/'), new ES6Loader('../lib/')] });
 
         thread = p.createThread('__main__');
+        p.settings.autocomplete = true;
 
         // patch console to show debug messages in terminal 
         window.console.debug = function patched(...items) {
