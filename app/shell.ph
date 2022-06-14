@@ -141,6 +141,9 @@ to __m__ do
             $ "https://api.github.com/repos/phoo-lang/phoo/commits" fetchJSON behead nip .sha 7 split drop ++
             $ ")" ++
             echo
+        $ "Shell at "
+            $ "https://api.github.com/repos/phoo-lang/phoo-lang.github.io/commits" fetchJSON behead nip .sha 7 split drop ++
+            echo
         $ "Strict mode is "
             self .phoo .settings .strictMode iff $ "ON" else $ "OFF" ++ echo
         $ "Press Shift+Enter for multiple lines." echo 
