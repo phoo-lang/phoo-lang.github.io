@@ -77,3 +77,7 @@ var loading = true;
         throw e;
     }
 })();
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register("/app/sw.js");
+}
