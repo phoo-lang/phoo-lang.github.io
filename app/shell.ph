@@ -59,12 +59,15 @@ to empty do
 end
 
 to shell.index [ stack ]
+to shell.cthrd [ stack ]
 
 to shell do
     0 shell.index put
+    self .phoo ' [ $ "__REPL__" ] .createThread() shell.cthrd put
+    shell.cthrd copy self .module .module=
     do
         shell.index take 1+ shell.index put
-        __REPL_run__
+        repl-run
         noop noop noop noop noop
         echostack
         $ "[[;magenta;]"
@@ -77,11 +80,31 @@ to shell do
         drop
     end
     shell.index release
+    shell.cthrd release
     $ "Shell exiting..." echo
 end
 
+to repl-run do
+    nested
+    try do
+        shell.cthrd copy swap .run() await
+    end
+    do
+        $ "Error!" echo-error
+        dup ]getstack[ dup not if [ drop $ "(No stack trace)" ] echo-error
+        dup stringify echo-error
+        .stack
+        dup iff do
+            $ `<details><summary style="color:red">View JS stack trace</summary><pre>` swap ++
+            $ `</pre></details>` ++
+            echo-raw
+        end
+        else drop
+    end
+    shell.cthrd copy .stack echostack
+end
+
 to echostack do
-    stacksize pack dup dip unpack
     dup len 0 = iff do
         drop
         $ "Stack empty." echo
@@ -108,11 +131,11 @@ to repr do
 end
 
 to __m__ do
-    use web/fetch
     window .URL window .document .location nested swap new
     .searchParams
     ' [ $ "code" ] .get()
     dup null = iff do
+        use web/fetch
         $ "Welcome to Phoo." echo
         $ "Version "
             $ "/phoo/package.json" fetchJSON .version ++

@@ -15,7 +15,8 @@ export const term = $('main').terminal(() => term.error('Hey! you should never s
     exit: false,
     greetings: 'Phoo is loading...',
     clear: false,
-    prompt: () => naiveColorize(`(${count})--> `, 'magenta'),
+    prompt: '[[;red;]ERROR] ',
+    mousewheel: () => true,
     // autocompleteMenu: true,
     // async completion() {
     //     var text = this.get_command(), list = [];
@@ -62,22 +63,8 @@ var loading = true;
         await initBuiltins(thread, '/phoo/lib/builtins.ph');
         await thread.run(await (await fetch('/app/shell.ph')).text());
 
-        thread.module.words.add('__REPL_run__', async function foo() {
-            try {
-                this.expect('string');
-                await this.run(this.pop());
-            } catch (e) {
-                term.error('Error!');
-                term.error(e[STACK_TRACE_SYMBOL] || '(No stack trace)');
-                term.error(e.toString());
-                if (e.stack) term.echo(`<details><summary style="color:red">View JS stack trace</summary><pre>${e.stack}</pre></details>`, { raw: true });
-            }
-        })
-
         loading = false;
-        term.clear();
-        term.enable();
-        term.focus();
+        term.clear().enable().focus();
         await thread.run('__m__');
         throw ExternalInterrupt.withPhooStack('Phoo exited unexpectedly.', thread.returnStack);
     } catch (e) {
@@ -90,8 +77,7 @@ var loading = true;
         term.echo(color(stringify(thread.workStack, { colorize: color }), 'inherit'), { raw: true });
         term.echo('If this continues to occur, please report it:');
         term.echo('https://github.com/phoo-lang/phoo/issues');
-        term.disable();
-        term.freeze();
+        term.disable().freeze();
         throw e;
     }
 })();
