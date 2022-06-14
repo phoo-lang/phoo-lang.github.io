@@ -38,6 +38,7 @@ to input do
     nested
     :__shell__.term .resume@ drop
     :__shell__.term .enable@ drop
+    :__shell__.term .cmd@ .history@ .enable@ drop
     :__shell__.term swap .read() await
 end
 

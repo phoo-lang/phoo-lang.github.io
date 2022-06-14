@@ -6,7 +6,7 @@ var count = 0;
 var run;
 const esc = $.terminal.escape_brackets;
 const naiveColorize = (text, color) => `[[;${color};]${esc(text)}]`;
-// TODO: #5 fix font size getting bigger
+// TODO: #1 fix font size getting bigger
 const color = (text, color) => `<span style="color:${color};font-size:inherit">${text}</span>`;
 var p, thread;
 
@@ -24,11 +24,7 @@ export const term = $('main').terminal(() => term.error('Hey! you should never s
 });
 
 $.terminal.syntax('phoo');
-$.terminal.prism_formatters = {
-    prompt: false,
-    echo: false,
-    command: true,
-};
+$.terminal.prism_formatters = { prompt: false, echo: false, command: true };
 
 Object.assign(window, { stringify, color, term });
 
