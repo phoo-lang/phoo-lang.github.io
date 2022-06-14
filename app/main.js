@@ -16,10 +16,10 @@ export const term = $('main').terminal(() => term.error('Hey! you should never s
     greetings: 'Phoo is loading...',
     clear: false,
     mousewheel: () => true,
-    autocompleteMenu: true,
-    completion() {
-        return Array.from(thread.module.words.map.keys());
-    },
+    // autocompleteMenu: true,
+    // completion() {
+    //     return Array.from(thread.module.words.map.keys());
+    // },
 });
 
 $.terminal.syntax('phoo');
