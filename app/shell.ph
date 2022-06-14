@@ -135,6 +135,7 @@ to __m__ do
     .searchParams
     ' [ $ "code" ] .get()
     dup null = iff do
+        drop
         use web/fetch
         $ "Welcome to Phoo." echo
         $ "Version "
@@ -152,7 +153,8 @@ to __m__ do
         $ "[[;magenta;](0)-->] " input
     end
     else do
-        nested window swap .atob()
+        use base64
+        b64.decode
         $ ` $ "[[;gray;]Program finished...]" echo` ++
         $ "[[;gray;]Running URL-coded program...]" echo
     end
