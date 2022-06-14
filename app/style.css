@@ -14,12 +14,6 @@ body {
     --font: "IBM Mono";
 }
 
-main,
-header {
-    margin: 0;
-    padding: 0.2em;
-}
-
 .terminal,
 .cmd,
 .terminal .terminal-output div div,
