@@ -15,13 +15,11 @@ export const term = $('main').terminal(() => term.error('Hey! you should never s
     exit: false,
     greetings: 'Phoo is loading...',
     clear: false,
-    prompt: '[[;red;]ERROR] ',
     mousewheel: () => true,
-    // autocompleteMenu: true,
-    // async completion() {
-    //     var text = this.get_command(), list = [];
-    //     AAAAAAAAAAAA
-    // },
+    autocompleteMenu: true,
+    completion() {
+        return Array.from(thread.module.words.keys());
+    },
 });
 
 $.terminal.syntax('phoo');
