@@ -51,10 +51,10 @@ var loading = true;
         p.settings.autocomplete = true;
 
         // patch console to show debug messages in terminal 
-        window.console.debug = function patched(...items) {
-            var joined = items.map(x => type(x) === 'string' ? x : stringify(x, { colorize: color })).join(' ');
-            term.echo(color(`[DEBUG] ${joined}`, 'lime'), { raw: true });
-        }
+        // window.console.debug = function patched(...items) {
+        //     var joined = items.map(x => type(x) === 'string' ? x : stringify(x, { colorize: color })).join(' ');
+        //     term.echo(color(`[DEBUG] ${joined}`, 'lime'), { raw: true });
+        // }
 
         await initBuiltins(thread, '/phoo/lib/builtins.ph');
         await thread.run(await (await fetch('/app/shell.ph')).text());
