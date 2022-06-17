@@ -3,6 +3,13 @@ window .term var, __shell__.term
 {} dup true .raw= var, __shell__.rawtrue
 {} dup false .newline= var, __shell__.nonl
 
+to wait do
+    promise nip
+    nested rot concat
+    window swap .setTimeout() drop
+    await drop
+end
+
 to echo do
     nested
     :__shell__.term swap .echo() drop
