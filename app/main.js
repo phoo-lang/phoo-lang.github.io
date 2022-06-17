@@ -15,6 +15,7 @@ export const term = $('body').terminal(() => term.error('Hey! you should never s
     exit: false,
     greetings: 'Phoo is loading...',
     clear: false,
+    scrollOnEcho: true,
     mousewheel: () => true,
     autocompleteMenu: true,
     completion() {
