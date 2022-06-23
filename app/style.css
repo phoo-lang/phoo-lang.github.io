@@ -5,7 +5,7 @@
 
 body {
     background: black;
-    font-size: 16px;
+    font-size: 12px;
     font-family: var(--font);
     color: white;
     height: 100%;
@@ -18,12 +18,12 @@ body {
 .cmd,
 .terminal .terminal-output div div,
 .cmd .prompt {
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 12px;
+    line-height: 14px;
 }
 
 .terminal .terminal-output div.raw {
-    font-size: 16px;
+    font-size: 12px;
 }
 
 .terminal * {
