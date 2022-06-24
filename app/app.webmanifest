@@ -10,7 +10,7 @@
         },
         {
             "sizes": "192x192",
-            "src": "P_192px.png",
+            "src": "/P_192px.png",
             "type": "image/png",
             "purpose": "maskable any"
         }
