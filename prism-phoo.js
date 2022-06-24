@@ -47,7 +47,7 @@ Prism.languages.phoo = {
 			lookbehind: true,
 		},
 		{
-			pattern: /(\s|^)(protect|noop|2?dup|2?over|2?swap|rot|unrot|nip|tuck|pack|unpack|dip|abs|\/~|[!<>]=|min|max|clamp|within|\$[<>]|not|and|or|xor|bit|release|copy|replace|move|tally|this|run|recurse|i\^?|step|restart|break|printable\?|trim|nextword|split\$|nested|len|pluck|stuff|behead|join|of|reverse\$?|reflect|makewith|witheach|foldr?|map|filter|matchitem|findwith|findseq|found\?|sortwith|sort\$?|(to|new|now|not)-do|do-now|add-to|ord|isa\?|isoneof\?|stringify|arayify|phoo|new!|!!todo!!)(?=\s|$)/,
+			pattern: /(\s|^)(protect|noop|2?dup|2?over|2?swap|rot|unrot|nip|tuck|pack|unpack|dip|abs|\/~|[!<>]=|min|max|clamp|within|\$[<>]|not|and|or|xor|bit|release|copy|replace|move|tally|this|run|recurse|i\^?|n?range|step|restart|break|printable\?|trim|nextword|split\$|nested|len|pluck|stuff|behead|join|of|reverse\$?|reflect|makewith|witheach|foldr?|map|filter|matchitem|findwith|findseq|found\?|sortwith|sort\$?|(to|new|now|not)-do|do-now|add-to|ord|isa\?|isoneof\?|stringify|arayify|phoo|new!|!!todo!!)(?=\s|$)/,
 			lookbehind: true,
 		}
 	],
