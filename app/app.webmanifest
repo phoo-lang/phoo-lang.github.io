@@ -1,0 +1,25 @@
+{
+    "name": "Phoo",
+    "short_name": "Phoo",
+    "icons": [
+        {
+            "sizes": "512x512",
+            "src": "/P_512px.png",
+            "type": "image/png",
+            "purpose": "maskable any"
+        },
+        {
+            "sizes": "192x192",
+            "src": "P_192px.png",
+            "type": "image/png",
+            "purpose": "maskable any"
+        }
+    ],
+    "start_url": "/",
+    "display": "minimal-ui",
+    "background_color": "black",
+    "theme_color": "magenta",
+    "description": "Interpreter and IDE for the Phoo programming language",
+    "lang": "en-US",
+    "dir": "ltr"
+}
