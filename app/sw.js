@@ -79,7 +79,7 @@ addEventListener('sync', e => {
 });
 
 async function finishQueuedRequests() {
-    const count = await fakeGet('sync-queue/count');
+    const count = await fakeGet('sync-queue/count') ?? 0;
     log('starting sync of queued requests:', count, 'pending');
     if (!count) return;
     for (var i = 0; i < count; i++) {
