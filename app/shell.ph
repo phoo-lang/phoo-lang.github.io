@@ -71,7 +71,7 @@ to load_script do
     window .document ' [ $ "script" ] .createElement()
     dup rot .src=
     promise
-    3 roll swap dip dup
+    3 roll swap dup rot
     .onload=
     dup rot .onerror=
     nested
@@ -83,7 +83,7 @@ to add_repo do
     nested dup
     window .FetchLoader new
     dip [ window .ES6Loader new ]
-    self .phoo .loaders dup unrot put put
+    self .phoo .loaders tuck put put
 end
 
 to shell.index [ stack ]
