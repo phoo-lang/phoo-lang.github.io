@@ -1,7 +1,7 @@
-window .term var, __shell__.term
+window .term var, shell.term
 
-{} dup true .raw= var, __shell__.rawtrue
-{} dup false .newline= var, __shell__.nonl
+{} dup true .raw= var, shell.rawtrue
+{} dup false .newline= var, shell.nonl
 
 to wait do
     promise nip
@@ -12,18 +12,18 @@ end
 
 to echo do
     nested
-    :__shell__.term swap .echo() drop
+    :shell.term swap .echo() drop
 end
 
 to echo-error do
     nested
-    :__shell__.term swap .error() drop
+    :shell.term swap .error() drop
 end
 
 to echo-raw do
     nested
-    :__shell__.rawtrue concat
-    :__shell__.term swap .echo() drop
+    :shell.rawtrue concat
+    :shell.term swap .echo() drop
 end
 
 to alert do
@@ -43,28 +43,40 @@ end
 
 to input do
     nested
-    :__shell__.term .resume@ drop
-    :__shell__.term .enable@ drop
-    :__shell__.term swap .read()
-    :__shell__.term .cmd@ .history@ .enable@ drop
+    :shell.term .resume@ drop
+    :shell.term .enable@ drop
+    :shell.term swap .read()
+    :shell.term .cmd@ .history@ .enable@ drop
     await
 end
 
 to nl do
-    :__shell__.term .echo@ drop
+    :shell.term .echo@ drop
 end
 
 to sp do
-    ' [ $ ' ' ] :__shell__.nonl concat
-    :__shell__.term swap .echo() drop
+    ' [ $ ' ' ] :shell.nonl concat
+    :shell.term swap .echo() drop
 end
 
 to cc do
-    :__shell__.term .clear@ drop
+    :shell.term .clear@ drop
 end
 
 to empty do
-    stacksize pack drop
+    stacksize times drop
+end
+
+to load_script do
+    window .document ' [ $ "script" ] .createElement()
+    dup rot .src=
+    promise
+    3 roll swap dip dup
+    .onload=
+    dup rot .onerror=
+    nested
+    window .document .body swap .appendChild() drop
+    await
 end
 
 to shell.index [ stack ]
