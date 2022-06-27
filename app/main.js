@@ -27,7 +27,7 @@ export const term = $('body').terminal(() => term.error('Hey! you should never s
 $.terminal.syntax('phoo');
 $.terminal.prism_formatters = { prompt: false, echo: false, command: true };
 
-Object.assign(window, { stringify, color, term });
+Object.assign(window, { stringify, color, term, FetchLoader, ES6Loader });
 
 var loading = true;
 (function () {
