@@ -79,6 +79,13 @@ to load_script do
     await
 end
 
+to add_repo do
+    nested dup
+    window .FetchLoader new
+    dip [ window .ES6Loader new ]
+    self .phoo .loaders dup unrot put put
+end
+
 to shell.index [ stack ]
 to shell.cthrd [ stack ]
 
