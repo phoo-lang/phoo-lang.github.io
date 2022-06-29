@@ -29,3 +29,9 @@ body {
 .terminal * {
     font-family: var(--font);
 }
+
+@media (prefers-reduced-motion) {
+    :root {
+        --animation: terminal-none;
+    }
+}
