@@ -96,6 +96,7 @@ to shell do
     do
         shell.index take 1+ shell.index put
         repl-run
+        sync-styles
         shell.cthrd copy .workStack echostack
         $ "[[;magenta;]"
         $ "(" shell.index len 1- of ' ++ fold ++
@@ -145,11 +146,11 @@ end
 to repr do
     nested
     {}
-    self .phoo .settings .prettyprint if do
-        dup self .phoo .settings .prettyindent dup not if [ drop $ "  " ] .indent=
+    self .phoo .settings .shell.pretty if do
+        dup self .phoo .settings .shell.indent dup not if [ drop $ "  " ] .indent=
     end
-    self .phoo .settings .maxreprdepth if do
-        dup self .phoo .settings .maxreprdepth .max_depth=
+    self .phoo .settings .shell.reprd if do
+        dup self .phoo .settings .shell.reprd .max_depth=
     end
     dup window .color .colorize=
     concat
@@ -185,4 +186,16 @@ to __m__ do
         $ "[[;gray;]Running URL-coded program...]" echo
     end
     shell
+end
+
+to sync-styles do
+    window .document .body .style 
+    self .phoo .settings .shell.font
+    .--font=
+    self .phoo .settings .shell.light-mode iff do
+        window .document .body ' [ $ "data-reverse-color" true ] .setAttribute() drop
+    end
+    else do
+        window .document .body ' [ $ "data-reverse-color" ] .removeAttribute() drop
+    end
 end

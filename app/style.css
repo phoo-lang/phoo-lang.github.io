@@ -11,7 +11,11 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
-    --font: "IBM Mono";
+}
+
+[data-reverse-color] {
+    background: white;
+    color: black;
 }
 
 .terminal,
