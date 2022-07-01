@@ -4,18 +4,18 @@
 }
 
 body {
-    background: black;
+    --background: black;
     font-size: 12px;
     font-family: var(--font);
-    color: white;
+    --color: white;
     height: 100%;
     margin: 0;
     padding: 0;
 }
 
 [data-reverse-color] {
-    background: white;
-    color: black;
+    --background: white;
+    --color: black;
 }
 
 .terminal,

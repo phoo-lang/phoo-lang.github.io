@@ -189,9 +189,9 @@ to __m__ do
 end
 
 to sync-styles do
-    window .document .body .style 
-    self .phoo .settings .shell.font
-    .--font=
+    ' [ $ "body" ] window swap .$()
+    ' [ $ "--font" ] self .phoo .settings .shell.font concat
+    .css() drop
     self .phoo .settings .shell.light-mode iff do
         window .document .body ' [ $ "data-reverse-color" true ] .setAttribute() drop
     end
