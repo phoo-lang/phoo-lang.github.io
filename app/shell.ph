@@ -202,3 +202,10 @@ to sync-styles do
         window .document .body ' [ $ "data-reverse-color" ] .removeAttribute() drop
     end
 end
+
+to JQ() [ nested window swap .jQuery() ]
+
+to shell.load-font do
+    $ "<link rel=""stylesheet"" href=""https://fonts.googleapis.com/css?family=" swap ++ $ """>" ++ nested
+    window .document .body JQ() swap .append() drop
+end

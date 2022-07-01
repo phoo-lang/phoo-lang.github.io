@@ -7,14 +7,14 @@ body {
     --background: black;
     font-size: 12px;
     font-family: var(--font);
-    --color: white;
+    --color: #aaa;
     height: 100%;
     margin: 0;
     padding: 0;
 }
 
 [data-reverse-color] {
-    --background: white;
+    --background: #aaa;
     --color: black;
 }
 
