@@ -190,7 +190,10 @@ end
 
 to sync-styles do
     ' [ $ "body" ] window swap .$()
-    ' [ $ "--font" ] self .phoo .settings .shell.font concat
+    ' [ $ "--font" ]
+        self .phoo .settings .shell.font
+        dup $ "symbol" isa? if name
+        concat
     .css() drop
     self .phoo .settings .shell.light-mode iff do
         window .document .body ' [ $ "data-reverse-color" true ] .setAttribute() drop
