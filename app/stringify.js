@@ -1,3 +1,5 @@
+/* jshint -W086 */
+
 import { type } from '/phoo/src/utils.js';
 
 const DEFAULT_PALETTE = {
@@ -30,23 +32,21 @@ export default function stringify(obj, { colorize = x => x, max_depth = 5, palet
         case 'boolean':
             return colorize(obj, palette.boolean);
         case 'Boolean':
-            return `Boolean {${stringify(obj.valueOf(), options)}}`
+            return `Boolean {${stringify(obj.valueOf(), options)}}`;
         case 'string':
             return colorize(stringy(obj), palette.string);
         case 'String':
-            return `String {${stringify(obj.valueOf(), options)}}`
+            return `String {${stringify(obj.valueOf(), options)}}`;
         case 'bigint':
             return colorize(obj.toString() + 'n', palette.bigint);
         case 'array':
             if (!obj.length)
                 return '[]';
             inner = obj.map(item => stringify(item, options));
-            if (!indent) {
+            if (!indent)
                 return '[' + inner.join(', ') + ']';
-            }
-            else {
+            else
                 return '[\n' + indent_lines(inner.join(',\n'), indent) + '\n]';
-            }
         case 'regexp':
             return colorize(`/${obj.source}/${obj.flags}`, palette.regexp);
         case 'undefined':
@@ -80,7 +80,8 @@ export default function stringify(obj, { colorize = x => x, max_depth = 5, palet
             for (itm of items) {
                 prop$ = stringify(obj[itm], options);
                 if (/^[$_a-z][$_a-z0-9]*/i.test(itm)) key$ = itm;
-                else key$ = `[${stringy(itm)}]`;
+                else if (/^\d+$/.test(itm)) key$ = colorize(itm, palette.number);
+                else key$ = `[${stringify(itm, options)}]`;
                 pairs.push([key$, prop$]);
             }
             for (itm of itemSymbols) {
@@ -107,16 +108,30 @@ export default function stringify(obj, { colorize = x => x, max_depth = 5, palet
     }
 }
 
+const C_ABBREVIATIONS = {
+    0: '0',
+    7: 'a',
+    8: 'b',
+    9: 't',
+    10: 'n',
+    11: 'v',
+    12: 'f',
+    13: 'r'
+};
+
 function stringy(string) {
     var escaped = [...string].map(char => {
         const cc = char.charCodeAt(0);
         // replace double quotes
         if (char === '"') return '\\"';
+        // escape < and & so they don't get interpreted as HTML
+        if (char === '&') return '&amp;';
+        if (char === '<') return '&lt;';
         // printable: no need to escape
         if (31 < cc && cc < 128) return char;
         // replace nonprintable characters < \x20
-        const cabbrev = { 0: '0', 7: 'a', 8: 'b', 9: 't', 10: 'n', 11: 'v', 12: 'f', 13: 'r' };
-        if (cabbrev[cc] !== undefined) return '\\' + cabbrev[cc];
+        if (cc in C_ABBREVIATIONS) return '\\' + C_ABBREVIATIONS[cc];
+        // replace Unicode characters > ASCII range
         if (cc < 256) return '\\x' + cc.toString(16).padStart(2, '0');
         if (cc < 65536) return '\\u' + cc.toString(16).padStart(4, '0');
         return '\\u{' + cc.toString(16) + '}';
@@ -125,7 +140,7 @@ function stringy(string) {
 }
 
 // https://stackoverflow.com/questions/40922531/how-to-check-if-a-javascript-function-is-a-constructor
-const handler = { construct() { return handler } } // Must return ANY object, so reuse one
+const handler = { construct() { return handler; } }; // Must return ANY object, so reuse one
 function is_constructor(f) {
     try {
         return !!(new (new Proxy(f, handler))());
