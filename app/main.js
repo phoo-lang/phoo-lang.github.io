@@ -6,7 +6,6 @@ var count = 0;
 var run;
 const esc = $.terminal.escape_brackets;
 const naiveColorize = (text, color) => `[[;${color};]${esc(text)}]`;
-// TODO: #1 fix font size getting bigger
 const color = (text, color) => `<span style="color:${color};font-size:inherit">${text}</span>`;
 var p, thread;
 
