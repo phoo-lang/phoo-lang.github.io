@@ -1,4 +1,4 @@
-import { Phoo, initBuiltins, FetchLoader, ES6Loader, STACK_TRACE_SYMBOL, type } from '/phoo/src/index.js';
+import { Phoo, initBuiltins, FetchLoader, ES6Loader, STACK_TRACE_SYMBOL } from '/phoo/src/index.js';
 import { ExternalInterrupt } from '/phoo/src/errors.js';
 import stringify from './stringify.js';
 
