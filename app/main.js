@@ -2,10 +2,6 @@ import { Phoo, initBuiltins, FetchLoader, ES6Loader, STACK_TRACE_SYMBOL, type } 
 import { ExternalInterrupt } from '/phoo/src/errors.js';
 import stringify from './stringify.js';
 
-var count = 0;
-var run;
-const esc = $.terminal.escape_brackets;
-const naiveColorize = (text, color) => `[[;${color};]${esc(text)}]`;
 const color = (text, color) => `<span style="color:${color};font-size:inherit">${text}</span>`;
 var p, thread;
 
