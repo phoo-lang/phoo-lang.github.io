@@ -189,10 +189,14 @@ to __m__ do
 end
 
 to sync-styles do
-    ' [ $ "body" ] window swap .$()
+    $ "body" JQ()
     ' [ $ "--font" ]
         self .phoo .settings .shell.font
         dup $ "symbol" isa? if name
+        concat
+    .css()
+    ' [ $ "--size" ]
+        self .phoo .settings .shell.size
         concat
     .css() drop
     self .phoo .settings .shell.light-mode iff do
