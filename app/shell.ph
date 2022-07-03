@@ -97,7 +97,7 @@ to shell do
         shell.index take 1+ shell.index put
         repl-run
         sync-styles
-        shell.cthrd copy .workStack echostack
+        echostack
         $ "[[;magenta;]"
         $ "(" shell.index len 1- of ' ++ fold ++
         shell.index copy ++
@@ -132,6 +132,7 @@ to repl-run do
 end
 
 to echostack do
+    shell.cthrd copy .workStack 
     dup len 0 = iff do
         drop
         $ "Stack empty." echo
