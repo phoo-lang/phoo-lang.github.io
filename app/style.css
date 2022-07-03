@@ -14,7 +14,7 @@ body {
 }
 
 [data-reverse-color] {
-    --background: #aaa;
+    --background: white;
     --color: black;
 }
 
