@@ -117,7 +117,7 @@ to repl-run do
     try do
         shell.cthrd copy swap .run() await
     end
-    do
+    except do
         $ "Error!" echo-error
         dup ]getstack[ dup not if [ drop $ "(No stack trace)" ] echo-error
         dup stringify echo-error
