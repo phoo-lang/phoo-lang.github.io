@@ -28,6 +28,7 @@ body {
 
 .terminal .terminal-output div.raw {
     font-size: calc(var(--size, 1)*12px);
+    white-space: pre;
 }
 
 .terminal * {
