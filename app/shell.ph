@@ -115,7 +115,7 @@ end
 to repl-run do
     nested
     try do
-        shell.cthrd copy swap .run() await
+        shell.cthrd copy swap .run() await drop
     end
     except do
         $ "Error!" echo-error
